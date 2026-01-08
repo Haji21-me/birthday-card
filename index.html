@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Zainab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --soft-pink: #fce4ec;
+            --deep-pink: #f06292;
+            --lavender: #f3e5f5;
+            --gold: #d4af37;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--soft-pink);
+            color: #4a4a4a;
+        }
+
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-cursive { font-family: 'Dancing Script', cursive; }
+
+        /* Smooth page transitions */
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .hidden-page {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+        }
+
+        /* Floating Animation */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Sparkle / Heart Particles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Typing Effect */
+        .typing-cursor {
+            border-right: 2px solid var(--deep-pink);
+            animation: blink 0.75s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--deep-pink); }
+        }
+
+        /* Gold Gradient Text */
+        .gold-text {
+            background: linear-gradient(45deg, #b8860b, #d4af37, #f7ef8a, #d4af37, #b8860b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 400% 400%;
+            animation: gold-flow 5s ease infinite;
+        }
+
+        @keyframes gold-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(240, 98, 146, 0.2);
+        }
+
+        /* Audio Controls */
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: white;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Music (Romantic Instrumental Placeholder) -->
+    <!-- Note: Browsers block auto-play. Music starts on first click. -->
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-control" onclick="toggleMusic()">
+        <svg id="music-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-pink-500" viewBox="0 0 16 16">
+            <path d="M8 12c-4.418 0-8 3.582-8 8h16c0-4.418-3.582-8-8-8z"/>
+            <path d="M8 0a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+        </svg>
+    </div>
+
+    <!-- LANDING SCREEN -->
+    <section id="landing-page" class="page bg-gradient-to-br from-[#fce4ec] to-[#f3e5f5]">
+        <div class="text-center px-6">
+            <h1 id="typing-text" class="font-serif text-4xl md:text-6xl text-gray-800 mb-6 min-h-[4rem]"></h1>
+            <p class="font-cursive text-2xl md:text-3xl text-pink-400 opacity-0 animate-pulse transition-opacity duration-1000" id="landing-subtext">
+                Your special day is finally here...
+            </p>
+            <button onclick="revealLetter()" class="mt-12 px-8 py-3 bg-white text-pink-500 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all border border-pink-100 hover:scale-105 active:scale-95">
+                Open Your Card ❤️
+            </button>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT SECTION -->
+    <section id="main-content" class="page hidden-page py-20 overflow-y-auto block">
+        <div class="max-w-4xl mx-auto px-6 py-10">
+            
+            <!-- Header -->
+            <div class="text-center mb-16 floating">
+                <h2 class="font-cursive text-5xl md:text-7xl gold-text mb-4">Zainab Chaudhary</h2>
+                <div class="h-1 w-24 bg-pink-300 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Heartfelt Message -->
+            <div class="glass-card rounded-3xl p-8 md:p-12 mb-16 text-center">
+                <h3 class="font-serif text-2xl md:text-3xl italic mb-6 text-gray-700">To My Dearest Zainab,</h3>
+                <p class="leading-relaxed text-lg md:text-xl text-gray-600 mb-6">
+                    Today is a celebration of the most beautiful soul I have ever known. From the moment you walked into my life, you’ve brought a warmth and light that I never knew existed.
+                </p>
+                <p class="leading-relaxed text-lg md:text-xl text-gray-600 mb-6">
+                    Zainab, your grace, your laughter, and your incredible heart inspire me every single day. You make the world a softer, kinder place just by being in it. On your birthday, I want you to know how deeply you are loved and how immensely grateful I am for every moment we share.
+                </p>
+                <p class="leading-relaxed text-lg md:text-xl text-gray-600 mb-8">
+                    May this year bring you as much joy as you’ve given me. Happy Birthday, my love.
+                </p>
+                <p class="font-cursive text-4xl text-pink-500">— Forever Yours ❤️</p>
+            </div>
+
+            <!-- Gallery Placeholder -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                <div class="aspect-square bg-pink-100 rounded-2xl overflow-hidden shadow-md flex items-center justify-center border-4 border-white">
+                    <span class="text-pink-300 text-sm font-medium italic p-4 text-center">A beautiful memory of us...</span>
+                </div>
+                <div class="aspect-square bg-lavender rounded-2xl overflow-hidden shadow-md flex items-center justify-center border-4 border-white transform md:translate-y-8">
+                    <span class="text-purple-300 text-sm font-medium italic p-4 text-center">Your radiant smile...</span>
+                </div>
+                <div class="aspect-square bg-pink-100 rounded-2xl overflow-hidden shadow-md flex items-center justify-center border-4 border-white">
+                    <span class="text-pink-300 text-sm font-medium italic p-4 text-center">Another year of love...</span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center pb-20">
+                <p class="font-serif text-gray-400 italic">"Loved you yesterday, love you still, always have, always will."</p>
+                <div class="mt-8 text-pink-200">✨ ✨ ✨</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const typingText = document.getElementById('typing-text');
+        const landingSubtext = document.getElementById('landing-subtext');
+        const fullText = "Happy Birthday, Zainab Chaudhary ❤️";
+        let index = 0;
+
+        // Typewriter Effect
+        function type() {
+            if (index < fullText.length) {
+                typingText.innerHTML += fullText.charAt(index);
+                index++;
+                setTimeout(type, 100);
+            } else {
+                typingText.classList.remove('typing-cursor');
+                landingSubtext.style.opacity = '1';
+            }
+        }
+
+        // Particle System
+        function createParticle() {
+            const particle = document.createElement('div');
+            const isHeart = Math.random() > 0.5;
+            
+            particle.className = 'particle';
+            particle.innerHTML = isHeart ? '❤️' : '✨';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = '-20px';
+            particle.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            particle.style.opacity = Math.random();
+            
+            const duration = Math.random() * 3 + 4;
+            particle.style.animationDuration = duration + 's';
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, duration * 1000);
+        }
+
+        // Start particles
+        setInterval(createParticle, 500);
+
+        // Page Navigation
+        function revealLetter() {
+            const landing = document.getElementById('landing-page');
+            const main = document.getElementById('main-content');
+            
+            landing.classList.add('hidden-page');
+            setTimeout(() => {
+                landing.style.display = 'none';
+                main.classList.remove('hidden-page');
+                // Ensure scroll to top
+                window.scrollTo(0,0);
+            }, 1500);
+
+            // Attempt to play music
+            const music = document.getElementById('bg-music');
+            music.play().catch(() => {
+                console.log("Autoplay prevented. User interaction required for music.");
+            });
+        }
+
+        // Music Toggle
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            const icon = document.getElementById('music-icon');
+            if (music.paused) {
+                music.play();
+                icon.style.opacity = '1';
+            } else {
+                music.pause();
+                icon.style.opacity = '0.5';
+            }
+        }
+
+        // Initialize
+        window.onload = () => {
+            typingText.classList.add('typing-cursor');
+            setTimeout(type, 1000);
+        };
+    </script>
+</body>
+</html>
